@@ -22,7 +22,7 @@ jobs:
         run: python -m playwright install --with-deps
 
   test-functional:
-    needs: setup
+    needs: [setup]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -43,7 +43,7 @@ jobs:
           path: test-results/
 
   test-visual:
-    needs: setup
+    needs: [setup]
     runs-on: ubuntu-latest
     strategy:
       matrix:
