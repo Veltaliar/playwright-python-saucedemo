@@ -47,7 +47,7 @@ def test_cart_items_visible(login, inventory_page, cart_page, add_item_to_cart):
 def test_checkout_with_items(login, inventory_page, cart_page, add_item_to_cart):
     """ Test the functionality of the checkout button when there are items in the cart. """
     inventory_page.navigate_to()
-    
+
     for product in PRODUCTS:
         add_item_to_cart(product)
 
