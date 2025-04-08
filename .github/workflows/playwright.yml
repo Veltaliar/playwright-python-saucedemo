@@ -66,12 +66,16 @@ jobs:
           pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }} --tracing=retain-on-failure
         continue-on-error: true
 
-      - name: Upload Snapshots
+      - name: Zip Snapshots
+        run: |
+          mkdir -p upload
+          zip -r upload/snapshots-${{ matrix.browser }}-${{ matrix.test_path }}.zip ${{ matrix.test_path }}/snapshots/
+      
+      - name: Upload Snapshot Archive
         uses: actions/upload-artifact@v4
         with:
-          name: snapshots-${{ matrix.browser }}
-          path: |
-            tests_visual/snapshots/
+          name: snapshots-${{ matrix.browser }}-${{ matrix.test_path }}
+          path: upload/
 
       - name: Upload Playwright Traces
         uses: actions/upload-artifact@v4
