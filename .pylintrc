@@ -95,7 +95,8 @@ disable=
     fixme,
     cyclic-import,
     import-error,
-    missing-module-docstring
+    missing-module-docstring,
+    duplicate-code
 
 
 [REPORTS]
