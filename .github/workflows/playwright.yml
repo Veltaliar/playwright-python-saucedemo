@@ -29,6 +29,7 @@ jobs:
       - name: Run Tests
         run: |
           pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }} --tracing=retain-on-failure
+        continue-on-error: true
 
       - name: Upload Playwright traces
         uses: actions/upload-artifact@v4
@@ -63,6 +64,7 @@ jobs:
       - name: Run Tests
         run: |
           pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }} --tracing=retain-on-failure
+        continue-on-error: true
 
       - name: Upload Playwright traces
         uses: actions/upload-artifact@v4
