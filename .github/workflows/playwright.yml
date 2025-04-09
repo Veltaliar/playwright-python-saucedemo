@@ -72,6 +72,7 @@ jobs:
 
       - name: Compare Snapshot State
         id: check_snapshots
+        if: ${{ !cancelled() }}
         run: |
           find ${{ matrix.test_path }}snapshots -type f -name "*.png" | sort > after.txt
           if ! diff before.txt after.txt > /dev/null; then
