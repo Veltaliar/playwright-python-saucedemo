@@ -12,6 +12,17 @@ from pages.CheckoutPage import CheckoutPage
 
 
 @pytest.fixture
+def browser_context_args():
+    return {
+        "viewport": {"width": 1280, "height": 720},
+        "device_scale_factor": 1,
+        "is_mobile": False,
+        "has_touch": False,
+        "screen": {"width": 1280, "height": 720}
+    }
+
+
+@pytest.fixture
 def login_page(page):
     """ Fixture to initialize the LoginPage. """
     return LoginPage(page)
