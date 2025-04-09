@@ -86,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: snapshots-${{ matrix.browser }}-tests_visual
-          path: upload/
+          path: ${{ matrix.test_path }}snapshots
 
       - name: Upload Playwright Traces
         uses: actions/upload-artifact@v4
