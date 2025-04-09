@@ -82,7 +82,7 @@ jobs:
           fi
 
       - name: Upload Snapshot Archive
-        if: steps.check_snapshots.outputs.snapshots_changed == 'true'
+        if: ${{ steps.check_snapshots.outputs.snapshots_changed == 'true' && !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
           name: snapshots-${{ matrix.browser }}-tests_visual
@@ -90,14 +90,14 @@ jobs:
 
       - name: Upload Playwright Traces
         uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+        if: ${{ failure() }}
         with:
           name: playwright-traces-${{ matrix.browser }}-tests_visual
           path: test-results/
 
       - name: Upload Snapshot Failures
         uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+        if: ${{ failure() }}
         with:
           name: failed_snapshots-${{ matrix.browser }}
           path: ${{ matrix.test_path }}snapshot_tests_failures/**/*.png
