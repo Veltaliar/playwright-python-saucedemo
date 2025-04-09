@@ -64,17 +64,17 @@ jobs:
       - name: Save Snapshot State Before Test
         id: snapshot_baseline
         run: |
-          find snapshots -type f -name "*.png" | sort > before.txt
+          find ${{ matrix.test_path }}snapshots -type f -name "*.png" | sort > before.txt
 
       - name: Run Tests
         run: |
           pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }} --tracing=retain-on-failure
         continue-on-error: true
 
-      - name: Compare snapshot state (after test)
+      - name: Compare Snapshot State
         id: check_snapshots
         run: |
-          find snapshots -type f -name "*.png" | sort > after.txt
+          find ${{ matrix.test_path }}snapshots -type f -name "*.png" | sort > after.txt
           if ! diff before.txt after.txt > /dev/null; then
             echo "snapshots_changed=true" >> "$GITHUB_OUTPUT"
           else
