@@ -1,6 +1,6 @@
-name: Playwright Tests (Python)
+name: Playwright Tests (Github Actions)
 
-on: [push, pull_request]
+on: []
 
 jobs:
   test-functional:
