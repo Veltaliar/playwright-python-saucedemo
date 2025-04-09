@@ -12,6 +12,23 @@ from pages.CheckoutPage import CheckoutPage
 
 
 @pytest.fixture
+def browser_context_args(browser_name):
+    if browser_name == "chromium":
+        return {
+            "args": [
+                "--disable-gpu",
+                "--disable-dev-shm-usage",
+                "--disable-software-rasterizer",
+                "--no-sandbox",
+                "--font-render-hinting=none",
+                "--force-device-scale-factor=1",
+                "--disable-lcd-text"
+            ],
+        }
+    return {}
+
+
+@pytest.fixture
 def login_page(page):
     """ Fixture to initialize the LoginPage. """
     return LoginPage(page)
