@@ -97,5 +97,5 @@ jobs:
       - name: Upload Snapshot Failures
         uses: actions/upload-artifact@v4
         with:
-          name: snapshots-${{ matrix.browser }}-tests_visual
+          name: failed_snapshots-${{ matrix.browser }}
           path: ${{ matrix.test_path }}snapshot_tests_failures/**/*.png
