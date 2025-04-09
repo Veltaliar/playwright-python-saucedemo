@@ -8,10 +8,10 @@ from data.ValidCredentials import ValidCredentials
 
 @pytest.mark.parametrize("valid_login_test_data", [
     {"username": ValidCredentials.STANDARD_USER, "password": ValidCredentials.PASSWORD},
-    # {"username": ValidCredentials.ERROR_USER, "password": ValidCredentials.PASSWORD},
-    # pytest.param({"username": ValidCredentials.PERFORMANCE_GLITCH_USER, "password": ValidCredentials.PASSWORD}, marks=pytest.mark.xfail),
-    # pytest.param({"username": ValidCredentials.PROBLEM_USER, "password": ValidCredentials.PASSWORD}, marks=pytest.mark.xfail),
-    # pytest.param({"username": ValidCredentials.VISUAL_USER, "password": ValidCredentials.PASSWORD}, marks=pytest.mark.xfail),
+    {"username": ValidCredentials.ERROR_USER, "password": ValidCredentials.PASSWORD},
+    pytest.param({"username": ValidCredentials.PERFORMANCE_GLITCH_USER, "password": ValidCredentials.PASSWORD}, marks=pytest.mark.xfail),
+    pytest.param({"username": ValidCredentials.PROBLEM_USER, "password": ValidCredentials.PASSWORD}, marks=pytest.mark.xfail),
+    pytest.param({"username": ValidCredentials.VISUAL_USER, "password": ValidCredentials.PASSWORD}, marks=pytest.mark.xfail),
 ])
 def test_inventory_page_view_visual(login_page, inventory_page, valid_login_test_data, assert_snapshot):
     """Test the inventory page view."""
