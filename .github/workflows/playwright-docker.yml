@@ -1,0 +1,89 @@
+name: Playwright Tests (Docker)
+
+on: [push, pull_request]
+
+jobs:
+  test-functional:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+        test_path: [tests/]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t playwright-python .
+
+      - name: Run Functional Tests in Docker
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/test-results:/app/test-results \
+            -e BROWSER=${{ matrix.browser }} \
+            playwright-python \
+            pytest ${{ matrix.test_path }} --browser=${{ matrix.browser }} --tracing=retain-on-failure
+
+      - name: Upload Playwright Traces
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-traces-${{ matrix.browser }}
+          path: test-results/
+
+  test-visual:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+        test_path: [tests_visual/]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t playwright-python .
+
+      - name: Save Snapshot State (Before)
+        run: find ${{ matrix.test_path }}snapshots -type f -name "*.png" | sort > before.txt
+
+      - name: Run Visual Tests in Docker
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/test-results:/app/test-results \
+            -v ${{ github.workspace }}/${{ matrix.test_path }}snapshots:/app/${{ matrix.test_path }}snapshots \
+            -v ${{ github.workspace }}/${{ matrix.test_path }}snapshot_tests_failures:/app/${{ matrix.test_path }}snapshot_tests_failures \
+            -e BROWSER=${{ matrix.browser }} \
+            playwright-python \
+            pytest ${{ matrix.test_path }} --browser=${{ matrix.browser }} --tracing=retain-on-failure
+
+      - name: Compare Snapshot State (After)
+        id: check_snapshots
+        run: |
+          find ${{ matrix.test_path }}snapshots -type f -name "*.png" | sort > after.txt
+          if ! diff before.txt after.txt > /dev/null; then
+            echo "snapshots_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "snapshots_changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload New Snapshots
+        if: steps.check_snapshots.outputs.snapshots_changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshots-${{ matrix.browser }}
+          path: ${{ matrix.test_path }}snapshots/
+
+      - name: Upload Failed Snapshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failed_snapshots-${{ matrix.browser }}
+          path: ${{ matrix.test_path }}snapshot_tests_failures/
+
+      - name: Upload Playwright Traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces-${{ matrix.browser }}
+          path: test-results/
