@@ -22,4 +22,5 @@ def test_inventory_page_view_visual(login_page, inventory_page, valid_login_test
     expect(inventory_page.page).to_have_url(f"{PageUrls.INVENTORY_URL}")
 
     browser_name = inventory_page.page.context.browser.browser_type.name
-    assert_snapshot(inventory_page.page.screenshot(full_page=True), name=f"inventory_page_{browser_name}.png")
+    operating_system = inventory_page.page.context.browser.browser_type._playwright.platform
+    assert_snapshot(inventory_page.page.screenshot(full_page=True), name=f"inventory_page_[{browser_name}][{operating_system}].png")
