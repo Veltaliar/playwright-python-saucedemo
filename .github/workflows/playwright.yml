@@ -6,6 +6,7 @@ jobs:
   test-functional:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
         test_path: [tests/]
@@ -27,10 +28,8 @@ jobs:
           python -m playwright install --with-deps
 
       - name: Run Tests
-        id: run_tests
         run: |
           pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }} --tracing=retain-on-failure
-          echo $? > test-exit-code.txt
 
       - name: Upload Playwright Traces
         uses: actions/upload-artifact@v4
@@ -39,17 +38,10 @@ jobs:
           name: playwright-traces
           path: test-results/
 
-      - name: Fail if Tests Failed
-        run: |
-          code=$(cat test-exit-code.txt)
-          if [ "$code" -ne 0 ]; then
-            echo "❌ Tests failed with exit code $code"
-            exit $code
-          fi
-
   test-visual:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
         test_path: [tests_visual/]
@@ -71,14 +63,12 @@ jobs:
             python -m playwright install --with-deps
 
       - name: Save Snapshot State Before Test
-        id: snapshot_baseline
         run: |
           find ${{ matrix.test_path }}snapshots -type f -name "*.png" | sort > before.txt
 
       - name: Run Tests
         run: |
           pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }} --tracing=retain-on-failure
-          echo $? > test-exit-code-visual.txt
 
       - name: Compare Snapshot State
         id: check_snapshots
@@ -103,11 +93,3 @@ jobs:
         with:
           name: playwright-traces-${{ matrix.browser }}-tests_visual
           path: test-results/
-
-      - name: Fail if Tests Failed
-        run: |
-          code=$(cat test-exit-code-visual.txt)
-          if [ "$code" -ne 0 ]; then
-            echo "❌ Tests failed with exit code $code"
-            exit $code
-          fi
