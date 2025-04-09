@@ -19,7 +19,6 @@ def test_name_navigates_to_item_details(login, inventory_page, item_details_page
     expect(item_details_page.page).to_have_url(f"{PageUrls.INVENTORY_ITEM_URL}?id={Products.PRODUCT_DETAILS[product_name]['id']}")
 
 
-
 @pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 2))
 def test_image_navigates_to_item_details(login, inventory_page, item_details_page, product_name):
     """ Test that clicking on the item image navigates to the item details page. """
@@ -28,7 +27,6 @@ def test_image_navigates_to_item_details(login, inventory_page, item_details_pag
                   .click()
 
     expect(item_details_page.page).to_have_url(f"{PageUrls.INVENTORY_ITEM_URL}?id={Products.PRODUCT_DETAILS[product_name]['id']}")
-
 
 
 @pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 2))
