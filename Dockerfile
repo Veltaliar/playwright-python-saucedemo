@@ -14,9 +14,19 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get install -y locales && \
+locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+ENV TZ=UTC
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=0
+
 COPY . .
 
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
+
+RUN python -m playwright install --with-deps
 
 CMD ["pytest"]
