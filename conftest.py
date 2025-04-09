@@ -12,7 +12,7 @@ from pages.CheckoutPage import CheckoutPage
 
 
 @pytest.fixture
-def browser_context_args(browser_name):
+def launch_options(browser_name):
     if browser_name == "chromium":
         return {
             "args": [
