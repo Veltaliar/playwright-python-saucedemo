@@ -69,12 +69,12 @@ jobs:
       - name: Zip Snapshots
         run: |
           mkdir -p upload
-          zip -r upload/snapshots-${{ matrix.browser }}-tests_visual.zip ${{ matrix.test_path }}/snapshots/
+          zip -r upload/snapshots-${{ matrix.browser }}-tests_visual.zip tests_visual/snapshots/
       
       - name: Upload Snapshot Archive
         uses: actions/upload-artifact@v4
         with:
-          name: snapshots-${{ matrix.browser }}-${{ matrix.test_path }}
+          name: snapshots-${{ matrix.browser }}-tests_visual
           path: upload/
 
       - name: Upload Playwright Traces
