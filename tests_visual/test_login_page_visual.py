@@ -12,7 +12,7 @@ def test_visual_login_blank_page(login_page, assert_snapshot):
     """Test the login page when no credentials are entered."""
     login_page.navigate_to()
     expect(login_page.page).to_have_url(f"{PageUrls.BASE_URL}/")
-    assert_snapshot(login_page.page.screenshot(full_page=True))
+    assert_snapshot(login_page.page.screenshot(full_page=True), threshold=0.02)
 
 
 @pytest.mark.parametrize("unauthenticated_pages", [
@@ -26,7 +26,7 @@ def test_visual_access_unauthenticated_page(login_page, unauthenticated_pages, a
     """ Test access to pages without login. """
     login_page.page.goto(unauthenticated_pages["url"])
     expect(login_page.get_error_message()).to_have_text(unauthenticated_pages["excepted_error"])
-    assert_snapshot(login_page.page.screenshot(full_page=True))
+    assert_snapshot(login_page.page.screenshot(full_page=True), threshold=0.02)
 
 
 @pytest.mark.parametrize("invalid_login_test_data", [
@@ -42,4 +42,4 @@ def test_visual_invalid_login(login_page, invalid_login_test_data, assert_snapsh
               .enter_password(invalid_login_test_data["password"]) \
               .click_login_button()
     expect(login_page.get_error_message()).to_have_text(invalid_login_test_data["expected_error"])
-    assert_snapshot(login_page.page.screenshot(full_page=True))
+    assert_snapshot(login_page.page.screenshot(full_page=True), threshold=0.02)

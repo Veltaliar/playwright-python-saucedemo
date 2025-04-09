@@ -15,7 +15,7 @@ def test_blank_checkout_form_visual(login, checkout_page, assert_snapshot):
     """ Test the visual appearance of the blank checkout form. """
     checkout_page.navigate_to()
     expect(checkout_page.page).to_have_url(PageUrls.CHECKOUT_URL_STEP1)
-    assert_snapshot(checkout_page.page.screenshot(full_page=True))
+    assert_snapshot(checkout_page.page.screenshot(full_page=True), threshold=0.02)
 
 
 def test_checkout_form_firstname_required_visual(login, checkout_page, assert_snapshot):
@@ -23,7 +23,7 @@ def test_checkout_form_firstname_required_visual(login, checkout_page, assert_sn
     checkout_page.navigate_to() \
                  .click_continue()
     expect(checkout_page.get_error_message()).to_have_text(ErrorMessages.FIRST_NAME_REQUIRED_ERROR)
-    assert_snapshot(checkout_page.page.screenshot(full_page=True))
+    assert_snapshot(checkout_page.page.screenshot(full_page=True), threshold=0.02)
 
 
 def test_checkout_form_lastname_required_visual(login, checkout_page, assert_snapshot):
@@ -32,7 +32,7 @@ def test_checkout_form_lastname_required_visual(login, checkout_page, assert_sna
                  .fill_first_name(FIRST_NAME) \
                  .click_continue()
     expect(checkout_page.get_error_message()).to_have_text(ErrorMessages.LAST_NAME_REQUIRED_ERROR)
-    assert_snapshot(checkout_page.page.screenshot(full_page=True))
+    assert_snapshot(checkout_page.page.screenshot(full_page=True), threshold=0.02)
 
 
 def test_checkout_form_zipcode_required_visual(login, checkout_page, assert_snapshot):
@@ -42,7 +42,7 @@ def test_checkout_form_zipcode_required_visual(login, checkout_page, assert_snap
                  .fill_last_name(LAST_NAME) \
                  .click_continue()
     expect(checkout_page.get_error_message()).to_have_text(ErrorMessages.ZIP_CODE_REQUIRED_ERROR)
-    assert_snapshot(checkout_page.page.screenshot(full_page=True))
+    assert_snapshot(checkout_page.page.screenshot(full_page=True), threshold=0.02)
 
 
 def test_overview_with_item_visual(login, checkout_page, add_item_to_cart, assert_snapshot):
@@ -54,7 +54,7 @@ def test_overview_with_item_visual(login, checkout_page, add_item_to_cart, asser
                  .fill_zip_code(ZIP_CODE) \
                  .click_continue()
     expect(checkout_page.page).to_have_url(PageUrls.CHECKOUT_URL_STEP2)
-    assert_snapshot(checkout_page.page.screenshot(full_page=True))
+    assert_snapshot(checkout_page.page.screenshot(full_page=True), threshold=0.02)
 
 
 def test_order_submited_visual(login, checkout_page, assert_snapshot):
@@ -66,4 +66,4 @@ def test_order_submited_visual(login, checkout_page, assert_snapshot):
                  .click_continue() \
                  .click_finish()
     expect(checkout_page.page).to_have_url(PageUrls.CHECKOUT_URL_STEP3)
-    assert_snapshot(checkout_page.page.screenshot(full_page=True))
+    assert_snapshot(checkout_page.page.screenshot(full_page=True), threshold=0.02)

@@ -15,4 +15,4 @@ def test_item_details_view(login, inventory_page, item_details_page, product_nam
                   .click()
 
     expect(item_details_page.page).to_have_url(f"{PageUrls.INVENTORY_ITEM_URL}?id={Products.PRODUCT_DETAILS[product_name]['id']}")
-    assert_snapshot(item_details_page.page.screenshot(full_page=True))
+    assert_snapshot(item_details_page.page.screenshot(full_page=True), threshold=0.02)

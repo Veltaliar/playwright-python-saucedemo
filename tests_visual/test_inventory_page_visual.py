@@ -24,4 +24,4 @@ def test_inventory_page_view_visual(login_page, inventory_page, valid_login_test
 
     browser_name = inventory_page.page.context.browser.browser_type.name
     operating_system = sys.platform
-    assert_snapshot(inventory_page.page.screenshot(full_page=True), name=f"inventory_page[{browser_name}][{operating_system}].png")
+    assert_snapshot(inventory_page.page.screenshot(full_page=True), threshold=0.02, name=f"inventory_page[{browser_name}][{operating_system}].png")
