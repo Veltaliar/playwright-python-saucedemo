@@ -12,8 +12,7 @@ PRODUCTS = Products.PRODUCT_DETAILS.keys()
 @pytest.fixture
 def open_burger_menu(inventory_page):
     """ Fixture to open the burger menu before each test. """
-    inventory_page.navigate_to() \
-                  .open_burger_menu()
+    inventory_page.open_burger_menu()
     expect(inventory_page.get_close_burger_menu_button()).to_be_visible()
 
 
@@ -61,7 +60,6 @@ def test_close_burger_menu(login, inventory_page, open_burger_menu):
 @pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 2))
 def test_cart_badge_increase(login, inventory_page, product_name, add_item_to_cart):
     """ Test that the cart badge increases when an item is added to the cart. """
-    inventory_page.navigate_to()
     add_item_to_cart(product_name)
 
     expect(inventory_page.get_cart_badge()).to_have_text("1")
@@ -69,7 +67,6 @@ def test_cart_badge_increase(login, inventory_page, product_name, add_item_to_ca
 
 def test_cart_badge_decreases(login, inventory_page, add_item_to_cart, remove_item_from_cart):
     """ Test that the cart badge decreases when an item is removed from the cart. """
-    inventory_page.navigate_to()
     product_count = len(PRODUCTS)
 
     for product_name in PRODUCTS:
@@ -87,7 +84,6 @@ def test_cart_badge_decreases(login, inventory_page, add_item_to_cart, remove_it
 @pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 2))
 def test_cart_badge_disappears(login, inventory_page, product_name, add_item_to_cart, remove_item_from_cart):
     """ Test that the cart badge disappears when the last item is removed from the cart. """
-    inventory_page.navigate_to()
     add_item_to_cart(product_name)
     remove_item_from_cart(product_name)
 
@@ -97,7 +93,6 @@ def test_cart_badge_disappears(login, inventory_page, product_name, add_item_to_
 @pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 2))
 def test_add_button_changes_to_remove(login, inventory_page, product_name, add_item_to_cart):
     """ Test that the add button changes to remove when an item is added to the cart. """
-    inventory_page.navigate_to()
     add_item_to_cart(product_name)
     item = inventory_page.get_locator_by_name(product_name)
 
@@ -107,7 +102,6 @@ def test_add_button_changes_to_remove(login, inventory_page, product_name, add_i
 @pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 2))
 def test_remove_button_changes_to_add(login, inventory_page, product_name, add_item_to_cart, remove_item_from_cart):
     """ Test that the remove button changes to add when an item is removed from the cart. """
-    inventory_page.navigate_to()
     add_item_to_cart(product_name)
     remove_item_from_cart(product_name)
     item = inventory_page.get_locator_by_name(product_name)
@@ -118,7 +112,6 @@ def test_remove_button_changes_to_add(login, inventory_page, product_name, add_i
 @pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 1))
 def test_added_items_persist_through_page_reload(login, inventory_page, product_name, add_item_to_cart):
     """ Test that added items persist through page reload. """
-    inventory_page.navigate_to()
     add_item_to_cart(product_name)
     item = inventory_page.get_locator_by_name(product_name)
     inventory_page.page.reload()
@@ -134,8 +127,7 @@ def test_added_items_persist_through_page_reload(login, inventory_page, product_
 ])
 def test_sort_items(login, inventory_page, sort_option, key_func, reverse):
     """ Test the sorting functionality of the inventory page. """
-    inventory_page.navigate_to() \
-                  .select_sort_option(sort_option)
+    inventory_page.select_sort_option(sort_option)
     expected_order = sorted(PRODUCTS, key=key_func, reverse=reverse)
     items = inventory_page.get_product_items()
     displayed_names = [items.nth(i).locator(inventory_page.item_name).inner_text() for i in range(items.count())]
@@ -145,7 +137,6 @@ def test_sort_items(login, inventory_page, sort_option, key_func, reverse):
 
 def test_go_to_cart(login, inventory_page, cart_page):
     """ Test the functionality of the go to cart button. """
-    inventory_page.navigate_to()
     inventory_page.click_cart_icon()
 
     expect(cart_page.page).to_have_url(PageUrls.CART_URL)

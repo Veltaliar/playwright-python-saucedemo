@@ -22,37 +22,37 @@ def browser_context_args():
     }
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def login_page(page):
     """ Fixture to initialize the LoginPage. """
     return LoginPage(page)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def inventory_page(page):
     """ Fixture to initialize the InventoryPage. """
     return InventoryPage(page)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def item_details_page(page):
     """ Fixture to initialize the ItemDetailsPage. """
     return ItemDetailsPage(page)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def cart_page(page):
     """ Fixture to initialize the CartPage. """
     return CartPage(page)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def checkout_page(page):
     """ Fixture to initialize the CheckoutPage. """
     return CheckoutPage(page)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def login(login_page, inventory_page):
     """ Fixture to log in to the application before each test. And log out after the test. """
     login_page.navigate_to() \
