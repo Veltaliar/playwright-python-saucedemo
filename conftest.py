@@ -52,7 +52,7 @@ def checkout_page(page):
     return CheckoutPage(page)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def login(login_page, inventory_page):
     """ Fixture to log in to the application before each test. And log out after the test. """
     login_page.navigate_to() \
