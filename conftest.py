@@ -22,31 +22,31 @@ def browser_context_args():
     }
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def login_page(page):
     """ Fixture to initialize the LoginPage. """
     return LoginPage(page)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def inventory_page(page):
     """ Fixture to initialize the InventoryPage. """
     return InventoryPage(page)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def item_details_page(page):
     """ Fixture to initialize the ItemDetailsPage. """
     return ItemDetailsPage(page)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def cart_page(page):
     """ Fixture to initialize the CartPage. """
     return CartPage(page)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def checkout_page(page):
     """ Fixture to initialize the CheckoutPage. """
     return CheckoutPage(page)
