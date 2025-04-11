@@ -57,7 +57,7 @@ def test_close_burger_menu(login, inventory_page, open_burger_menu):
     expect(inventory_page.get_burger_menu()).to_be_visible()
 
 
-@pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 2))
+@pytest.mark.parametrize("product_name", list(PRODUCTS))
 def test_cart_badge_increase(login, inventory_page, product_name, add_item_to_cart):
     """ Test that the cart badge increases when an item is added to the cart. """
     add_item_to_cart(product_name)
@@ -81,7 +81,7 @@ def test_cart_badge_decreases(login, inventory_page, add_item_to_cart, remove_it
             expect(inventory_page.get_cart_badge()).to_have_text(str(product_count))
 
 
-@pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 2))
+@pytest.mark.parametrize("product_name", list(PRODUCTS))
 def test_cart_badge_disappears(login, inventory_page, product_name, add_item_to_cart, remove_item_from_cart):
     """ Test that the cart badge disappears when the last item is removed from the cart. """
     add_item_to_cart(product_name)
@@ -90,7 +90,7 @@ def test_cart_badge_disappears(login, inventory_page, product_name, add_item_to_
     expect(inventory_page.get_cart_badge()).not_to_be_visible()
 
 
-@pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 2))
+@pytest.mark.parametrize("product_name", list(PRODUCTS))
 def test_add_button_changes_to_remove(login, inventory_page, product_name, add_item_to_cart):
     """ Test that the add button changes to remove when an item is added to the cart. """
     add_item_to_cart(product_name)
@@ -99,7 +99,7 @@ def test_add_button_changes_to_remove(login, inventory_page, product_name, add_i
     expect(item.get_by_role("button", name="Remove")).to_be_visible()
 
 
-@pytest.mark.parametrize("product_name", random.sample(list(PRODUCTS), 2))
+@pytest.mark.parametrize("product_name", list(PRODUCTS))
 def test_remove_button_changes_to_add(login, inventory_page, product_name, add_item_to_cart, remove_item_from_cart):
     """ Test that the remove button changes to add when an item is removed from the cart. """
     add_item_to_cart(product_name)
