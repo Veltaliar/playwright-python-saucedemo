@@ -10,7 +10,8 @@ RUN pip install --upgrade pip && \
 RUN python -m playwright install --with-deps
 
 RUN addgroup --gid 1001 runner && \
-    adduser --disabled-password --gecos '' --uid 1001 --gid 1001 runner
+    adduser --disabled-password --gecos '' --uid 1001 --gid 1001 runner && \
+    chown -R runner:runner /app
 
 USER runner
 
