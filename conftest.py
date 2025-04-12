@@ -1,4 +1,5 @@
 import pytest
+
 from playwright.sync_api import expect
 
 from data.ValidCredentials import ValidCredentials
@@ -9,6 +10,12 @@ from pages.InventoryPage import InventoryPage
 from pages.ItemDetailsPage import ItemDetailsPage
 from pages.CartPage import CartPage
 from pages.CheckoutPage import CheckoutPage
+
+from utils.report_settings import setup_reporting, pytest_runtest_makereport, capture_trace_on_failure, pytest_html_results_summary
+
+
+def pytest_configure(config):
+    setup_reporting(config)
 
 
 @pytest.fixture

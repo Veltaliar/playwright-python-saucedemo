@@ -22,7 +22,7 @@ jobs:
             -v ${{ github.workspace }}/test-results:/app/test-results \
             -e BROWSER=${{ matrix.browser }} \
             playwright-python \
-            pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }} --tracing=retain-on-failure
+            pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }}
 
       - name: Upload Playwright Traces
         uses: actions/upload-artifact@v4
@@ -55,7 +55,7 @@ jobs:
             -v ${{ github.workspace }}/${{ matrix.test_path }}snapshot_tests_failures:/app/${{ matrix.test_path }}snapshot_tests_failures \
             -e BROWSER=${{ matrix.browser }} \
             playwright-python \
-            pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }} --tracing=retain-on-failure
+            pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }}
 
       - name: Compare Snapshot State
         id: check_snapshots
@@ -87,4 +87,4 @@ jobs:
         if: ${{ failure() }}
         with:
           name: playwright-traces-${{ matrix.browser }}-tests_visual
-          path: test-results/
+          path: test_results/

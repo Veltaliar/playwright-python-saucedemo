@@ -174,3 +174,5 @@ cython_debug/
 .pypirc
 
 snapshot_tests_failures
+test-results
+test_results
