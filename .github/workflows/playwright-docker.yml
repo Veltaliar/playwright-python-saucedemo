@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-traces
+          name: playwright-traces-${{ matrix.browser }}-tests_functional
           path: test_results/
 
   test-visual:
