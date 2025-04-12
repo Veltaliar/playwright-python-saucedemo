@@ -1,6 +1,6 @@
 [MAIN]
 ignore=CVS
-ignore-paths=
+ignore-paths=.*utils/.*
 ignore-patterns=^\.#
 persistent=yes
 load-plugins=
@@ -24,6 +24,7 @@ py-version = 3.7.2
 limit-inference-results=100
 fail-under=10.0
 fail-on=
+
 
 [MESSAGES CONTROL]
 enable=
@@ -115,7 +116,7 @@ property-classes=abc.abstractproperty
 
 [TYPECHECK]
 mixin-class-rgx=.*MixIn
-ignored-modules=utils
+ignored-modules=
 ignored-classes=SQLObject, optparse.Values, thread._local, _thread._local
 generated-members=REQUEST,acl_users,aq_parent,argparse.Namespace
 contextmanager-decorators=contextlib.contextmanager
