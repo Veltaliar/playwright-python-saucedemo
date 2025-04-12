@@ -1,5 +1,9 @@
 FROM mcr.microsoft.com/playwright/python:v1.51.0-jammy
 
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get update && \
+    apt-get install -y nodejs
+
 WORKDIR /app
 
 COPY . .

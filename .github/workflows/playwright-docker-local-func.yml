@@ -1,0 +1,15 @@
+name: Local Playwright Docker Functional
+
+on: [workflow_dispatch]
+
+jobs:
+  test-functional:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - run: mkdir -p test_results
+      - run: pytest tests/ --browser ${{ matrix.browser }}

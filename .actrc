@@ -1,0 +1,4 @@
+--quiet
+--pull=false
+--bind
+-P ubuntu-latest=saucedemo

@@ -77,7 +77,7 @@ jobs:
 
       - name: Upload Failed Snapshots
         uses: actions/upload-artifact@v4
-        if: failure()
+        if: ${{ failure() }}
         with:
           name: failed_snapshots-${{ matrix.browser }}
           path: ${{ matrix.test_path }}snapshot_tests_failures/**/*.png

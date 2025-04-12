@@ -1,0 +1,26 @@
+name: Local Playwright Docker Visual
+
+on: [workflow_dispatch]
+
+jobs:
+  test-visual:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - run: mkdir -p test_results
+      - name: Save Snapshot State Before Test
+        run: find tests_visual/snapshots -type f -name "*.png" | sort > before.txt
+      - run: pytest tests_visual/ --browser ${{ matrix.browser }}
+      - name: Compare Snapshot State
+        id: check_snapshots
+        run: |
+          find tests_visual/snapshots -type f -name "*.png" | sort > after.txt
+          if ! diff before.txt after.txt > /dev/null; then
+            echo "snapshots_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "snapshots_changed=false" >> "$GITHUB_OUTPUT"
+          fi
