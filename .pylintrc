@@ -1,6 +1,6 @@
 [MAIN]
 ignore=CVS
-ignore-paths=.*utils/.*
+ignore-paths=.*(utils/.*|conftest\.py)
 ignore-patterns=^\.#
 persistent=yes
 load-plugins=
