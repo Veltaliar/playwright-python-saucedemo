@@ -25,8 +25,6 @@ playwright==1.51.0
 pluggy==1.5.0
 pycodestyle==2.13.0
 pyee==12.1.1
-pylint==3.3.6
-pylint-pytest==1.1.8
 pytest==8.2.0
 pytest-base-url==2.1.0
 pytest-html==4.1.1
