@@ -8,6 +8,7 @@ TRACE_DIR = Path("test-results/traces").resolve()
 
 
 def is_valid_trace_file(trace_filename: str) -> Path:
+    """ Validate the trace file path. """
     trace_path = (TRACE_DIR / trace_filename).resolve()
     try:
         trace_path.relative_to(TRACE_DIR)
@@ -20,6 +21,7 @@ def is_valid_trace_file(trace_filename: str) -> Path:
 
 @app.route('/show-trace')
 def show_report():
+    """ Endpoint to show trace files. """
     trace_files = request.args.getlist("trace")
     if not trace_files:
         return "Missing trace file parameter.", 400
