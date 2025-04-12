@@ -22,7 +22,7 @@ jobs:
             -v ${{ github.workspace }}/test_results:/app/test_results \
             -e BROWSER=${{ matrix.browser }} \
             playwright-python \
-            sh -c "pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }} && chown -R 1001:1001 /app/test_results"
+            pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }}
 
       - name: Upload Playwright Traces
         uses: actions/upload-artifact@v4
@@ -55,7 +55,7 @@ jobs:
             -v ${{ github.workspace }}/${{ matrix.test_path }}snapshot_tests_failures:/app/${{ matrix.test_path }}snapshot_tests_failures \
             -e BROWSER=${{ matrix.browser }} \
             playwright-python \
-            sh -c "pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }} && chown -R 1001:1001 /app/test_results"
+            pytest ${{ matrix.test_path }} --browser ${{ matrix.browser }}
 
       - name: Compare Snapshot State
         id: check_snapshots

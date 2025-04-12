@@ -9,4 +9,9 @@ RUN pip install --upgrade pip && \
 
 RUN python -m playwright install --with-deps
 
-CMD ["pytest"]
+RUN addgroup --gid 1001 runner && \
+    adduser --disabled-password --gecos '' --uid 1001 --gid 1001 runner
+
+USER runner
+
+RUN mkdir -p /app/test_results

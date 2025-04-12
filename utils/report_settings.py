@@ -1,6 +1,3 @@
-import shutil
-import os
-import stat
 from pathlib import Path
 from datetime import datetime
 from _pytest.runner import TestReport
@@ -14,23 +11,9 @@ TRACE_DIR = REPORT_DIR / "traces"
 SCREENSHOT_DIR = REPORT_DIR / "screenshots"
 
 
-def _remove_readonly(func, path, _):
-    """ Helper function to remove read-only attributes from files. """
-    os.chmod(path, stat.S_IWRITE)
-    func(path)
-
-
 def setup_reporting(config):
     """ Setup the reporting directory and remove old reports if they exist. """
     global pytest_html
-
-    if REPORT_DIR.exists() and REPORT_DIR.is_dir():
-        try:
-            shutil.rmtree(REPORT_DIR, onerror=_remove_readonly)
-            print(f"Removed existing REPORT_DIR: {REPORT_DIR}")
-        except Exception as e:
-            print(f"Failed to remove REPORT_DIR: {REPORT_DIR}\n{e}")
-
     REPORT_DIR.mkdir(exist_ok=True)
     TRACE_DIR.mkdir(exist_ok=True)
     SCREENSHOT_DIR.mkdir(exist_ok=True)
