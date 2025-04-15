@@ -1,7 +1,7 @@
 import logging
 from playwright.sync_api import Page, Locator
 
-from data.PageUrls import PageUrls
+from data.page_urls import PageUrls
 
 
 class CheckoutPage:

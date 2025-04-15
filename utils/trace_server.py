@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 app = Flask(__name__)
-TRACE_DIR = Path("test_results/traces").resolve()
+TRACE_DIR = Path("reports/traces").resolve()
 
 
 def is_valid_trace_file(trace_filename: str) -> Path:

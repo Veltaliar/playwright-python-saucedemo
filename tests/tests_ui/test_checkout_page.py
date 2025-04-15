@@ -1,9 +1,9 @@
 import random
 from playwright.sync_api import expect
 
-from data.PageUrls import PageUrls
-from data.ErrorMessages import ErrorMessages
-from data.Products import Products
+from data.page_urls import PageUrls
+from data.error_messages import ErrorMessages
+from data.products import Products
 
 
 PRODUCTS = random.sample(list(Products.PRODUCT_DETAILS.keys()), 3)

@@ -1,11 +1,11 @@
 import pytest
 from playwright.sync_api import expect
 
-from data.ErrorMessages import ErrorMessages
-from data.ValidCredentials import ValidCredentials
-from data.InvalidCredentials import InvalidCredentials
+from data.error_messages import ErrorMessages
+from data.valid_credentials import ValidCredentials
+from data.invalid_credentials import InvalidCredentials
 
-from data.PageUrls import PageUrls
+from data.page_urls import PageUrls
 
 
 def test_visual_login_blank_page(login_page, assert_snapshot):

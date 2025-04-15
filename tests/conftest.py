@@ -2,20 +2,23 @@ import pytest
 
 from playwright.sync_api import expect
 
-from data.ValidCredentials import ValidCredentials
-from data.PageUrls import PageUrls
+from data.valid_credentials import ValidCredentials
+from data.page_urls import PageUrls
 
-from pages.LoginPage import LoginPage
-from pages.InventoryPage import InventoryPage
-from pages.ItemDetailsPage import ItemDetailsPage
-from pages.CartPage import CartPage
-from pages.CheckoutPage import CheckoutPage
+from pages.login_page import LoginPage
+from pages.inventory_page import InventoryPage
+from pages.item_details_page import ItemDetailsPage
+from pages.cart_page import CartPage
+from pages.checkout_page import CheckoutPage
 
-from report_settings import setup_reporting, pytest_runtest_makereport, capture_trace_on_failure, pytest_html_results_summary
+from utils.report_settings import setup_reporting, pytest_runtest_makereport, capture_trace_on_failure, pytest_html_results_summary
 
 
 def pytest_configure(config):
     setup_reporting(config)
+    browser = config.getoption("--browser")
+    report_name = f"Test Report - {browser[0].capitalize()}"
+    config.option.htmlpath = f"reports/{report_name}.html"
 
 
 @pytest.fixture

@@ -2,8 +2,8 @@ import sys
 import pytest
 from playwright.sync_api import expect
 
-from data.PageUrls import PageUrls
-from data.ValidCredentials import ValidCredentials
+from data.page_urls import PageUrls
+from data.valid_credentials import ValidCredentials
 
 
 @pytest.mark.parametrize("valid_login_test_data", [

@@ -20,5 +20,5 @@ jobs:
 
       - name: Run linters
         run: |
-          mypy .
-          pycodestyle .
+          mypy data pages tests utils
+          pycodestyle data pages tests utils

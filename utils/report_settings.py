@@ -6,7 +6,7 @@ import pytest
 from playwright.sync_api import Page
 
 pytest_html = None
-REPORT_DIR = Path("test_results")
+REPORT_DIR = Path("reports")
 TRACE_DIR = REPORT_DIR / "traces"
 SCREENSHOT_DIR = REPORT_DIR / "screenshots"
 

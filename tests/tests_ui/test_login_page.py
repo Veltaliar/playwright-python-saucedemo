@@ -1,10 +1,10 @@
 import pytest
 from playwright.sync_api import expect
 
-from data.PageUrls import PageUrls
-from data.ErrorMessages import ErrorMessages
-from data.ValidCredentials import ValidCredentials
-from data.InvalidCredentials import InvalidCredentials
+from data.page_urls import PageUrls
+from data.error_messages import ErrorMessages
+from data.valid_credentials import ValidCredentials
+from data.invalid_credentials import InvalidCredentials
 
 
 @pytest.mark.parametrize("invalid_login_test_data", [

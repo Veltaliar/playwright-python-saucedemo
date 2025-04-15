@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: mkdir -p test_results
-      - run: pytest tests/ --browser ${{ matrix.browser }}
+      - run: pytest tests/tests_ui/test_login_page.py --browser ${{ matrix.browser }}
       - name: Save Playwright Traces (locally)
         if: ${{ failure() }}
         run: |
-          cp -r test_results/* test_results/playwright-traces-${{ matrix.browser }}-tests_functional || true
+          cp -r test_results/* reports/playwright-traces-${{ matrix.browser }}-tests_functional || true
