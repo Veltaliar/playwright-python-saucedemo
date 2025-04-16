@@ -1,3 +1,5 @@
+import os
+
 from pathlib import Path
 from datetime import datetime
 from _pytest.runner import TestReport
@@ -71,18 +73,22 @@ def pytest_html_results_summary(prefix, summary, postfix):
     if screenshots or traces:
         attached_html += "<h2>Attached Files</h2>"
 
-    if screenshots:
+    browser_name = os.getenv("BROWSER")
+    filtered_screenshots = [s for s in screenshots if browser_name in s.name]
+    filtered_traces = [t for t in traces if browser_name in t.name]
+
+    if filtered_screenshots:
         attached_html += "<h3>Screenshots</h3>"
-        for screenshot in screenshots:
+        for screenshot in filtered_screenshots:
             relative_path = screenshot.relative_to(REPORT_DIR)
             attached_html += (
                 f'<a href="{relative_path}" target="_blank" style="display:inline-block; margin-right:10px;">'
                 f'<img src="{relative_path}" alt="Screenshot" height="150"/></a>'
             )
 
-    if traces:
+    if filtered_traces:
         attached_html += "<h3>Traces</h3>"
-        for trace in traces:
+        for trace in filtered_traces:
             trace_url = generate_trace_url([trace])
             trace_name = trace.name
             attached_html += f'<p>{trace_name} - <a href="{trace_url}" target="_blank">Open Trace</a></p>'

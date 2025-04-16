@@ -11,9 +11,11 @@ jobs:
         browser: [chromium, firefox, webkit]
     steps:
       - uses: actions/checkout@v4
-      - run: mkdir -p test_results
-      - run: pytest tests/tests_ui/test_login_page.py --browser ${{ matrix.browser }}
-      - name: Save Playwright Traces (locally)
-        if: ${{ failure() }}
-        run: |
-          cp -r test_results/* reports/playwright-traces-${{ matrix.browser }}-tests_functional || true
+      - name: Clear Reports Directory
+        run: rm -rf reports || true
+      - name: Prepare new Reports Directory
+        run: mkdir -p reports
+      - name: Set Browser Environment Variable
+        run: echo "BROWSER=${{ matrix.browser }}" >> $GITHUB_ENV
+      - name: Run Playwright Tests
+        run: pytest tests/tests_ui/test_login_page.py --browser ${{ matrix.browser }}
