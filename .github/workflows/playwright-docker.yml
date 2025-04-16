@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
-        test_path: [tests/]
+        test_path: [tests/tests_ui/]
     steps:
       - uses: actions/checkout@v4
 
@@ -37,7 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
-        test_path: [tests_visual/]
+        test_path: [tests/tests_visual/]
     steps:
       - uses: actions/checkout@v4
 
