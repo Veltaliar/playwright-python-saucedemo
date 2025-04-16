@@ -1,4 +1,6 @@
-# Playwright Python SauceDemo Testing Suite
+# Playwright Python SauceDemo Testing Suite ![Python](https://img.shields.io/badge/python-3.11%2B-blue) ![Lint](https://github.com/Veltaliar/playwright-python-saucedemo/actions/workflows/lint.yml/badge.svg?branch=main) ![Tests](https://github.com/Veltaliar/playwright-python-saucedemo/actions/workflows/playwright-docker.yml/badge.svg?branch=main)
+
+
 
 This repository contains a comprehensive suite of automated tests for the SauceDemo website, built using [Playwright](https://playwright.dev/python/) and Python. The tests cover both functional and visual testing, ensuring the website's functionality and UI consistency across multiple browsers - Chromium, Firefox and Webkit.
 
