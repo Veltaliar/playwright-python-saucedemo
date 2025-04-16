@@ -3,7 +3,7 @@ import pytest
 from playwright.sync_api import expect
 
 from data.page_urls import PageUrls
-from data.products import Products
+from data.products_data import Products
 
 
 PRODUCTS = Products.PRODUCT_DETAILS.keys()
