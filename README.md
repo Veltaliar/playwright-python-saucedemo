@@ -90,6 +90,8 @@ Test reports are generated in the `reports/` directory. Open the HTML files in a
 - `Test Report - Firefox.html`
 - `Test Report - Webkit.html`
 
+In case some of the tests failed, the report will also have embedded screenshots and link to open traces. To use the later you firstly need to start `trace_server` that you can find in `utils` folder. Once this Flask server is running, when you click `Open Traces` it will open local Playwright Traces utility with selected traces loaded.
+
 ## Support of Act
 
 This project supports the use of [Act](https://github.com/nektos/act) to run GitHub Actions locally. Act allows you to test and debug your CI/CD workflows without pushing changes to GitHub.
@@ -140,3 +142,30 @@ To enhance your experience with Act, you can use it in combination with the Visu
 
 3. **Known Issues:**
    - For some reason the Lint job sometimes gets stuck and won't ever finish. In that case just cancel and run it again, the `Run linters` step should not take longer than 30s.
+
+## Trace Server
+
+The `trace_server.py` utility in this project allows you to serve Playwright trace files for debugging and analysis. Playwright trace files provide detailed information about test execution, including screenshots, network requests, and console logs.
+
+### Running the Trace Server
+
+To start the trace server, use the following command:
+```bash
+python utils/trace_server.py
+```
+
+By default, the server will run on `http://localhost:8000`. You can open this URL in your browser to view the traces.
+
+### Customizing the Port
+
+If you want to run the server on a different port, you can specify the port number as an argument:
+```bash
+python utils/trace_server.py <port>
+```
+Replace `<port>` with the desired port number.
+
+### Viewing Traces
+
+1. Ensure that the `traces/` directory contains the trace files you want to analyze.
+2. Start the trace server as described above.
+3. Open the server URL in your browser and navigate through the traces to debug your tests.
