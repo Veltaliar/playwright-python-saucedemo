@@ -7,21 +7,16 @@ import pytest
 
 from playwright.sync_api import Page
 
-pytest_html = None
 REPORT_DIR = Path("reports")
 TRACE_DIR = REPORT_DIR / "traces"
 SCREENSHOT_DIR = REPORT_DIR / "screenshots"
 
 
-def setup_reporting(config):
+def setup_reporting():
     """ Setup the reporting directory and remove old reports if they exist. """
-    global pytest_html
     REPORT_DIR.mkdir(exist_ok=True)
     TRACE_DIR.mkdir(exist_ok=True)
     SCREENSHOT_DIR.mkdir(exist_ok=True)
-
-    if config.pluginmanager.hasplugin("html"):
-        pytest_html = config.pluginmanager.getplugin("html")
 
 
 @pytest.hookimpl(hookwrapper=True)

@@ -15,7 +15,7 @@ from utils.report_settings import setup_reporting, pytest_runtest_makereport, ca
 
 
 def pytest_configure(config):
-    setup_reporting(config)
+    setup_reporting()
     browser = config.getoption("--browser")
     report_name = f"Test Report - {browser[0].capitalize()}"
     config.option.htmlpath = f"reports/{report_name}.html"
